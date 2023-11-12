@@ -1,3 +1,5 @@
+package com.cs370.group4.goodspredict.controller;
+
 import java.util.HashMap;
 import java.util.Map;
 

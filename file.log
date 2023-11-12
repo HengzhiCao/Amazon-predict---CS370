@@ -588,3 +588,128 @@ org.thymeleaf.exceptions.TemplateInputException: Error resolving template [test]
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
 	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
 
+2023-11-12T15:23:18.185-05:00  INFO 33728 --- [main] c.c.g.g.GoodsPredictApplication          : Starting GoodsPredictApplication using Java 17.0.9 with PID 33728 (C:\Users\chenc\OneDrive\Desktop\Z College\2023fall\CSCI 370 SOFTWARE ENGINERRING\goodsPredict\target\classes started by 0824 in C:\Users\chenc\OneDrive\Desktop\Z College\2023fall\CSCI 370 SOFTWARE ENGINERRING\goodsPredict)
+2023-11-12T15:23:18.196-05:00  INFO 33728 --- [main] c.c.g.g.GoodsPredictApplication          : No active profile set, falling back to 1 default profile: "default"
+2023-11-12T15:23:22.582-05:00  INFO 33728 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8088 (http)
+2023-11-12T15:23:22.613-05:00  INFO 33728 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-11-12T15:23:22.614-05:00  INFO 33728 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.15]
+2023-11-12T15:23:22.975-05:00  INFO 33728 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-11-12T15:23:22.977-05:00  INFO 33728 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 4593 ms
+2023-11-12T15:23:24.696-05:00  INFO 33728 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8088 (http) with context path ''
+2023-11-12T15:23:24.729-05:00  INFO 33728 --- [main] c.c.g.g.GoodsPredictApplication          : Started GoodsPredictApplication in 8.024 seconds (process running for 12.488)
+2023-11-12T15:23:25.136-05:00  INFO 33728 --- [http-nio-8088-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-11-12T15:23:25.138-05:00  INFO 33728 --- [http-nio-8088-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-11-12T15:23:25.142-05:00  INFO 33728 --- [http-nio-8088-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2023-11-12T16:01:11.973-05:00  INFO 23724 --- [main] c.c.g.g.GoodsPredictApplicationTests     : Starting GoodsPredictApplicationTests using Java 17.0.9 with PID 23724 (started by 0824 in C:\Users\chenc\OneDrive\Desktop\Z College\2023fall\CSCI 370 SOFTWARE ENGINERRING\goodsPredict)
+2023-11-12T16:01:11.977-05:00  INFO 23724 --- [main] c.c.g.g.GoodsPredictApplicationTests     : No active profile set, falling back to 1 default profile: "default"
+2023-11-12T16:01:15.433-05:00  INFO 23724 --- [main] c.c.g.g.GoodsPredictApplicationTests     : Started GoodsPredictApplicationTests in 4.495 seconds (process running for 9.58)
+2023-11-12T16:21:43.258-05:00  INFO 28600 --- [main] c.c.g.g.GoodsPredictApplication          : Starting GoodsPredictApplication using Java 17.0.9 with PID 28600 (C:\Users\chenc\OneDrive\Desktop\Z College\2023fall\CSCI 370 SOFTWARE ENGINERRING\goodsPredict\target\classes started by 0824 in C:\Users\chenc\OneDrive\Desktop\Z College\2023fall\CSCI 370 SOFTWARE ENGINERRING\goodsPredict)
+2023-11-12T16:21:43.264-05:00  INFO 28600 --- [main] c.c.g.g.GoodsPredictApplication          : No active profile set, falling back to 1 default profile: "default"
+2023-11-12T16:21:45.133-05:00  INFO 28600 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8088 (http)
+2023-11-12T16:21:45.161-05:00  INFO 28600 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-11-12T16:21:45.162-05:00  INFO 28600 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.15]
+2023-11-12T16:21:45.544-05:00  INFO 28600 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-11-12T16:21:45.544-05:00  INFO 28600 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2139 ms
+2023-11-12T16:21:46.392-05:00  INFO 28600 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8088 (http) with context path ''
+2023-11-12T16:21:46.408-05:00  INFO 28600 --- [main] c.c.g.g.GoodsPredictApplication          : Started GoodsPredictApplication in 4.179 seconds (process running for 5.966)
+2023-11-12T16:22:37.132-05:00  INFO 28600 --- [http-nio-8088-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-11-12T16:22:37.134-05:00  INFO 28600 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-11-12T16:22:37.135-05:00  INFO 28600 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-11-12T16:22:58.186-05:00  INFO 34536 --- [main] c.c.g.g.GoodsPredictApplication          : Starting GoodsPredictApplication using Java 17.0.9 with PID 34536 (C:\Users\chenc\OneDrive\Desktop\Z College\2023fall\CSCI 370 SOFTWARE ENGINERRING\goodsPredict\target\classes started by 0824 in C:\Users\chenc\OneDrive\Desktop\Z College\2023fall\CSCI 370 SOFTWARE ENGINERRING\goodsPredict)
+2023-11-12T16:22:58.196-05:00  INFO 34536 --- [main] c.c.g.g.GoodsPredictApplication          : No active profile set, falling back to 1 default profile: "default"
+2023-11-12T16:23:00.439-05:00  INFO 34536 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8088 (http)
+2023-11-12T16:23:00.456-05:00  INFO 34536 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-11-12T16:23:00.457-05:00  INFO 34536 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.15]
+2023-11-12T16:23:00.734-05:00  INFO 34536 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-11-12T16:23:00.735-05:00  INFO 34536 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2396 ms
+2023-11-12T16:23:01.676-05:00  INFO 34536 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8088 (http) with context path ''
+2023-11-12T16:23:01.695-05:00  INFO 34536 --- [main] c.c.g.g.GoodsPredictApplication          : Started GoodsPredictApplication in 4.784 seconds (process running for 7.186)
+2023-11-12T16:24:46.668-05:00  INFO 34536 --- [http-nio-8088-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-11-12T16:24:46.670-05:00  INFO 34536 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-11-12T16:24:46.673-05:00  INFO 34536 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-11-12T16:25:32.918-05:00  INFO 15152 --- [main] c.c.g.g.GoodsPredictApplication          : Starting GoodsPredictApplication using Java 17.0.9 with PID 15152 (C:\Users\chenc\OneDrive\Desktop\Z College\2023fall\CSCI 370 SOFTWARE ENGINERRING\goodsPredict\target\classes started by 0824 in C:\Users\chenc\OneDrive\Desktop\Z College\2023fall\CSCI 370 SOFTWARE ENGINERRING\goodsPredict)
+2023-11-12T16:25:32.925-05:00  INFO 15152 --- [main] c.c.g.g.GoodsPredictApplication          : No active profile set, falling back to 1 default profile: "default"
+2023-11-12T16:25:35.161-05:00  INFO 15152 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8088 (http)
+2023-11-12T16:25:35.196-05:00  INFO 15152 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-11-12T16:25:35.198-05:00  INFO 15152 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.15]
+2023-11-12T16:25:35.582-05:00  INFO 15152 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-11-12T16:25:35.584-05:00  INFO 15152 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2514 ms
+2023-11-12T16:25:36.508-05:00  INFO 15152 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8088 (http) with context path ''
+2023-11-12T16:25:36.523-05:00  INFO 15152 --- [main] c.c.g.g.GoodsPredictApplication          : Started GoodsPredictApplication in 4.91 seconds (process running for 7.003)
+2023-11-12T16:25:43.502-05:00  INFO 15152 --- [http-nio-8088-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-11-12T16:25:43.503-05:00  INFO 15152 --- [http-nio-8088-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-11-12T16:25:43.506-05:00  INFO 15152 --- [http-nio-8088-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2023-11-12T16:25:51.479-05:00 ERROR 15152 --- [http-nio-8088-exec-2] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Handler dispatch failed: java.lang.NoClassDefFoundError: org/slf4j/impl/StaticLoggerBinder] with root cause
+
+java.lang.ClassNotFoundException: org.slf4j.impl.StaticLoggerBinder
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641) ~[na:na]
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188) ~[na:na]
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:525) ~[na:na]
+	at org.apache.spark.internal.Logging$.org$apache$spark$internal$Logging$$isLog4j12(Logging.scala:205) ~[spark-core_2.12-2.4.0.jar:2.4.0]
+	at org.apache.spark.internal.Logging.initializeLogging(Logging.scala:119) ~[spark-core_2.12-2.4.0.jar:2.4.0]
+	at org.apache.spark.internal.Logging.initializeLogIfNecessary(Logging.scala:108) ~[spark-core_2.12-2.4.0.jar:2.4.0]
+	at org.apache.spark.internal.Logging.initializeLogIfNecessary$(Logging.scala:102) ~[spark-core_2.12-2.4.0.jar:2.4.0]
+	at org.apache.spark.SparkContext.initializeLogIfNecessary(SparkContext.scala:73) ~[spark-core_2.12-2.4.0.jar:2.4.0]
+	at org.apache.spark.internal.Logging.initializeLogIfNecessary(Logging.scala:99) ~[spark-core_2.12-2.4.0.jar:2.4.0]
+	at org.apache.spark.internal.Logging.initializeLogIfNecessary$(Logging.scala:98) ~[spark-core_2.12-2.4.0.jar:2.4.0]
+	at org.apache.spark.SparkContext.initializeLogIfNecessary(SparkContext.scala:73) ~[spark-core_2.12-2.4.0.jar:2.4.0]
+	at org.apache.spark.internal.Logging.log(Logging.scala:46) ~[spark-core_2.12-2.4.0.jar:2.4.0]
+	at org.apache.spark.internal.Logging.log$(Logging.scala:44) ~[spark-core_2.12-2.4.0.jar:2.4.0]
+	at org.apache.spark.SparkContext.log(SparkContext.scala:73) ~[spark-core_2.12-2.4.0.jar:2.4.0]
+	at org.apache.spark.internal.Logging.logInfo(Logging.scala:54) ~[spark-core_2.12-2.4.0.jar:2.4.0]
+	at org.apache.spark.internal.Logging.logInfo$(Logging.scala:53) ~[spark-core_2.12-2.4.0.jar:2.4.0]
+	at org.apache.spark.SparkContext.logInfo(SparkContext.scala:73) ~[spark-core_2.12-2.4.0.jar:2.4.0]
+	at org.apache.spark.SparkContext.<init>(SparkContext.scala:183) ~[spark-core_2.12-2.4.0.jar:2.4.0]
+	at org.apache.spark.api.java.JavaSparkContext.<init>(JavaSparkContext.scala:58) ~[spark-core_2.12-2.4.0.jar:2.4.0]
+	at com.cs370.group4.goodspredict.controller.MyRandomForestController.runRandomForest(MyRandomForestController.java:26) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205) ~[spring-web-6.0.13.jar:6.0.13]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150) ~[spring-web-6.0.13.jar:6.0.13]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[spring-webmvc-6.0.13.jar:6.0.13]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:884) ~[spring-webmvc-6.0.13.jar:6.0.13]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:797) ~[spring-webmvc-6.0.13.jar:6.0.13]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.0.13.jar:6.0.13]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1081) ~[spring-webmvc-6.0.13.jar:6.0.13]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:974) ~[spring-webmvc-6.0.13.jar:6.0.13]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1011) ~[spring-webmvc-6.0.13.jar:6.0.13]
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903) ~[spring-webmvc-6.0.13.jar:6.0.13]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564) ~[tomcat-embed-core-10.1.15.jar:6.0]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.0.13.jar:6.0.13]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.15.jar:6.0]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.15.jar:10.1.15]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.0.13.jar:6.0.13]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.0.13.jar:6.0.13]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.0.13.jar:6.0.13]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.0.13.jar:6.0.13]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.0.13.jar:6.0.13]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.0.13.jar:6.0.13]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:340) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1744) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-10.1.15.jar:10.1.15]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
