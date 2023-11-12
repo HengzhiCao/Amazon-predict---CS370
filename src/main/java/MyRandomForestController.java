@@ -11,13 +11,18 @@ import org.apache.spark.mllib.linalg.Vectors;
 import org.apache.spark.mllib.regression.LabeledPoint;
 import org.apache.spark.mllib.tree.RandomForest;
 import org.apache.spark.mllib.tree.model.RandomForestModel;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import scala.Tuple2;
 
-public class MyRandomForest {
-    public static void main(String[] args) {
+@Controller
+public class MyRandomForestController {
+
+    @RequestMapping("/runRandomForest")
+    public static void runRandomForest() {
         SparkConf sparkConf = new SparkConf().setAppName("app").setMaster("local[1]");
         JavaSparkContext jsc = new JavaSparkContext(sparkConf);
-        // 加载数据
+        //load data
         String path = "D:\\IdeaProjects\\SparkMLlib\\src\\test\\java\\data4";
         JavaRDD<String> javaRDD = jsc.textFile(path);
         JavaRDD<LabeledPoint> data = javaRDD.map(new Function<String, LabeledPoint>() {
