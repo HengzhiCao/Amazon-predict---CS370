@@ -57,16 +57,48 @@ public class DataPreprocessing_rating {
     }
 
     private static double calculateScore(double discountedPrice, double actualPrice, double discountPercentage, double ratingCount, double rating) {
-        // 假设我们给评价数量的重要性是50%，折扣力度是30%，价格是20%
-        double score = (0.2 * normalizeRatingCount(ratingCount)) +
-                (0.2 * normalizeDiscount(discountPercentage)) +
-                (0.3 * normalizePrice(discountedPrice, actualPrice)) +
-                (0.2 * normalizeRating(rating));
 
-        // 确保分数在0到10分之间
-        score = Math.max(score, 0); // 如果分数低于0分，将其设置为0
-        score = Math.min(score, 10); // 如果分数高于10分，将其设置为10
+        // 处理丢失的discountedPrice
+        if (Double.isNaN(discountedPrice) || discountedPrice <= 0) {
+            if (Double.isNaN(discountPercentage) || discountPercentage <= 0) {
+                discountedPrice = actualPrice; // 如果折扣百分比也丢失了，则使用actualPrice
+            } else {
+                discountedPrice = actualPrice * (1 - discountPercentage / 100); // 用actualPrice和discountPercentage来估算discountedPrice
+            }
+        }
+
+        // 处理丢失的ratingCount
+        if (Double.isNaN(ratingCount) || ratingCount <= 0) {
+            ratingCount = 0;
+        }
+
+        // 处理丢失的rating
+        if (Double.isNaN(rating) || rating <= 0) {
+            rating = defaultRatingValue(); // 使用一个函数来获取默认评分值
+        }
+
+
+        // Make sure that the weights sum up to 1 (or 100%)
+        double weightRatingCount = 0.3; // For example, give 30% weight to ratingCount
+        double weightDiscount = 0.2;    // 20% weight to discountPercentage
+        double weightPrice = 0.2;       // 20% weight to price
+        double weightRating = 0.3;      // 30% weight to rating
+
+        double score = (weightRatingCount * normalizeRatingCount(ratingCount)) +
+                (weightDiscount * normalizeDiscount(discountPercentage)) +
+                (weightPrice * normalizePrice(discountedPrice, actualPrice)) +
+                (weightRating * normalizeRating(rating));
+
+
+
+        // Clamp the score between 0 and 10
+        score = Math.max(score, 0);
+        score = Math.min(score, 10);
         return score;
+    }
+
+    private static double defaultRatingValue() {
+        return 1.0;
     }
 
     private static double normalizeRating(double rating) {
