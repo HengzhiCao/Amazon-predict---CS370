@@ -11,7 +11,7 @@ import java.io.InputStream;
 public class DataPreprocessing_rating {
 
     public static void main(String[] args) {
-        String filePath = "C:\\Users\\cao10\\Downloads\\CS370--main\\amazon_product.xlsx"; // 替换为你的文件路径
+        String filePath = "C:\\Users\\cao10\\Downloads\\CS370\\amazon_product.xlsx"; // 替换为你的文件路径
 
         try (InputStream in = new FileInputStream(filePath)) {
             Workbook workbook = new XSSFWorkbook(in);
@@ -94,6 +94,13 @@ public class DataPreprocessing_rating {
         // Clamp the score between 0 and 10
         score = Math.max(score, 0);
         score = Math.min(score, 10);
+
+        if(score >5){
+            score =1;
+        }else {
+            score =0;
+        }
+
         return score;
     }
 

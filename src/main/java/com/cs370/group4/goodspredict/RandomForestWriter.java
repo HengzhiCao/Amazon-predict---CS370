@@ -13,9 +13,16 @@ public class RandomForestWriter {
 
     public static void main(String[] args) throws Exception {
         // 路径到训练和测试数据集的CSV文件
-        String testDataPath = "C:\\Users\\cao10\\Downloads\\CS370\\Air Conditioners (1).csv"; // 替换为你的训练数据路径
-        String trainingDataPath = "C:\\Users\\cao10\\Downloads\\CS370\\amazon_product.csv"; // 替换为你的测试数据路径
+//        String testDataPath = "C:\\Users\\cao10\\Downloads\\CS370\\amazon_product_only_id_test.csv"; // 替换为你的训练数据路径
+//        String trainingDataPath = "C:\\Users\\cao10\\Downloads\\CS370\\Train.csv"; // 替换为你的测试数据路径
+        String testDataPath = "C:\\Users\\cao10\\Downloads\\CS370\\TrainData.csv"; // Replace with your training data path
+        String trainingDataPath = "C:\\Users\\cao10\\Downloads\\CS370\\amazon_product_only_id.csv"; // Replace with your test data path
         String outputPath = "C:\\Users\\cao10\\Downloads\\CS370\\PredictionResults.csv"; // 替换为你的输出文件路径
+
+//        String testDataPath = "C:\\Users\\cao10\\Downloads\\CS370\\Testing_11_15.csv"; // Replace with your training data path
+//        String trainingDataPath = "C:\\Users\\cao10\\Downloads\\CS370\\Traing_11_15.csv"; // Replace with your test data path
+
+
 
 
         // 加载训练数据
@@ -43,11 +50,13 @@ public class RandomForestWriter {
 
         // 预测结果并写入新文件
         BufferedWriter writer = new BufferedWriter(new FileWriter(outputPath));
-        writer.write("Actual, Predicted\n"); // 写入表头
+        writer.write("Product_ID, Actual, Predicted\n"); // 包含 Product_ID 的表头
         for (int i = 0; i < testDataset.numInstances(); i++) {
-            double actual = testDataset.instance(i).classValue();
-            double predicted = forest.classifyInstance(testDataset.instance(i));
-            writer.write(actual + ", " + predicted + "\n");
+            Instance instance = testDataset.instance(i);
+            String productId = instance.toString(0); // 获取第一列的值（假设为 product_id）
+            double actual = instance.classValue();
+            double predicted = forest.classifyInstance(instance);
+            writer.write(productId + ", " + actual + ", " + predicted + "\n");
         }
         writer.close();
     }

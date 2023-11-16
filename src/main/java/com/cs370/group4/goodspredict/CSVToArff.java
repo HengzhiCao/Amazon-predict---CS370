@@ -10,13 +10,13 @@ public class CSVToArff {
     public static void main(String[] args) throws Exception {
         // 创建 CSVLoader 实例
         CSVLoader loader = new CSVLoader();
-        loader.setSource(new File("path_to_your_csv_file.csv")); // 替换为您的 CSV 文件路径
+        loader.setSource(new File("C:\\Users\\cao10\\Downloads\\CS370\\amazon_product_only_product_ID.csv")); // 替换为您的 CSV 文件路径
         Instances data = loader.getDataSet();
 
         // 创建 ArffSaver 实例
         ArffSaver saver = new ArffSaver();
         saver.setInstances(data);
-        saver.setFile(new File("output_file.arff")); // 输出文件的路径
+        saver.setFile(new File("csv_to_arff.arff")); // 输出文件的路径
         saver.writeBatch();
 
         System.out.println("CSV to ARFF conversion completed successfully!");
