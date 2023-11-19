@@ -1,4 +1,4 @@
-package org.example;
+package com.cs370.group4.goodspredict;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
