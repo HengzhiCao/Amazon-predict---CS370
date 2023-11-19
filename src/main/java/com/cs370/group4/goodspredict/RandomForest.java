@@ -201,7 +201,7 @@ public class RandomForest {
     }
 
     public static void main(String[] args) throws IOException {
-        RandomForest randomForest = new RandomForest(50,5);
+        RandomForest randomForest = new RandomForest(50,10);
 
         List<Instance> trainingData = new ArrayList<>();
         trainingData.add(new Instance(new double[]{20, 40, 0.50, 4.5, 100}, "Yes", "Discounted_Price")); // 折扣价格20, 实际价格40, 折扣率0.50
