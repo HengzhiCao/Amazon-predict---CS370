@@ -1,19 +1,33 @@
-package com.cs370.group4.goodspredict;
+package org.example;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.*;
+import java.util.stream.Collectors;
 
 class DecisionTree {
     static class TreeNode {
-        int featureIndex;
+        String attribute;
         double threshold;
         TreeNode left;
         TreeNode right;
         String label;
+
+        public TreeNode(String attribute, double threshold, TreeNode left, TreeNode right, String label) {
+            this.attribute = attribute;
+            this.threshold = threshold;
+            this.left = left;
+            this.right = right;
+            this.label = label;
+        }
     }
 
     private int maxDepth;
+    private Map<String, Integer> featureImportance = new HashMap<>();
+    private TreeNode root;
+    private static final Random random = new Random();
+    private String[] featureNames = new String[]{"Discounted_Price", "Actual_Price", "Discount_Percentage", "Rating", "Rating_Count"};
 
     public DecisionTree(int maxDepth) {
         this.maxDepth = maxDepth;
@@ -21,80 +35,171 @@ class DecisionTree {
 
     public TreeNode train(List<Instance> data, int currentDepth) {
         if (currentDepth == maxDepth || data.isEmpty() || isHomogeneous(data)) {
-            TreeNode leaf = new TreeNode();
-            leaf.label = getMajorityLabel(data);
-            return leaf;
+            return new TreeNode(null, Double.NaN, null, null, getMajorityLabel(data));
         }
 
-        int bestFeature = new Random().nextInt(data.get(0).features.length);
-        double bestThreshold = data.get(new Random().nextInt(data.size())).features[bestFeature];
+        int numFeatures = data.get(0).features.length;
+        int[] featureIndices = random.ints(0, numFeatures)
+                .distinct()
+                .limit(Math.max(1, (int) Math.sqrt(numFeatures)))
+                .toArray();
 
-        List<Instance> leftSplit = new ArrayList<>();
-        List<Instance> rightSplit = new ArrayList<>();
-        for (Instance instance : data) {
-            if (instance.features[bestFeature] < bestThreshold) {
-                leftSplit.add(instance);
-            } else {
-                rightSplit.add(instance);
+        double bestGain = Double.NEGATIVE_INFINITY;
+        int bestFeatureIndex = -1;
+        double bestThreshold = Double.NaN;
+
+        for (int featureIndex : featureIndices) {
+            double[] thresholdGain = findBestThresholdAndGain(data, featureIndex);
+            if (thresholdGain[1] > bestGain) {
+                bestGain = thresholdGain[1];
+                bestFeatureIndex = featureIndex;
+                bestThreshold = thresholdGain[0];
             }
         }
 
-        TreeNode node = new TreeNode();
-        node.featureIndex = bestFeature;
-        node.threshold = bestThreshold;
-        node.left = train(leftSplit, currentDepth + 1);
-        node.right = train(rightSplit, currentDepth + 1);
+        if (bestFeatureIndex == -1) {
+            return new TreeNode(null, Double.NaN, null, null, getMajorityLabel(data));
+        }
+
+        String splitFeature = featureNames[bestFeatureIndex];
+        featureImportance.merge(splitFeature, 1, Integer::sum);
+
+        TreeNode node = new TreeNode(splitFeature, bestThreshold, null, null, null);
+        List<Instance> leftData = new ArrayList<>();
+        List<Instance> rightData = new ArrayList<>();
+
+        for (Instance instance : data) {
+            if (instance.features[bestFeatureIndex] <= bestThreshold) {
+                leftData.add(instance);
+            } else {
+                rightData.add(instance);
+            }
+        }
+
+        node.left = train(leftData, currentDepth + 1);
+        node.right = train(rightData, currentDepth + 1);
 
         return node;
     }
 
-    public String predict(TreeNode tree, Instance instance) {
-        if (tree.left == null && tree.right == null) {
-            return tree.label;
+    private double[] findBestThresholdAndGain(List<Instance> data, int featureIndex) {
+        double bestGain = Double.NEGATIVE_INFINITY;
+        double bestThreshold = Double.NaN;
+
+        for (Instance instance : data) {
+            double threshold = instance.features[featureIndex];
+            double gain = calculateInformationGainForThreshold(data, featureIndex, threshold);
+
+            if (gain > bestGain) {
+                bestGain = gain;
+                bestThreshold = threshold;
+            }
         }
-        if (instance.features[tree.featureIndex] < tree.threshold) {
-            return predict(tree.left, instance);
-        } else {
-            return predict(tree.right, instance);
+
+        return new double[]{bestThreshold, bestGain};
+    }
+
+    private double calculateInformationGainForThreshold(List<Instance> data, int featureIndex, double threshold) {
+        List<Instance> leftData = new ArrayList<>();
+        List<Instance> rightData = new ArrayList<>();
+
+        for (Instance instance : data) {
+            if (instance.features[featureIndex] <= threshold) {
+                leftData.add(instance);
+            } else {
+                rightData.add(instance);
+            }
         }
+
+        double totalEntropy = calculateEntropy(data);
+        double leftEntropy = calculateEntropy(leftData);
+        double rightEntropy = calculateEntropy(rightData);
+
+        double weightedEntropy = ((double) leftData.size() / data.size()) * leftEntropy
+                + ((double) rightData.size() / data.size()) * rightEntropy;
+
+        return totalEntropy - weightedEntropy;
     }
 
     private boolean isHomogeneous(List<Instance> data) {
-        String firstLabel = data.get(0).label;
+        Set<String> uniqueLabels = new HashSet<>();
         for (Instance instance : data) {
-            if (!instance.label.equals(firstLabel)) {
-                return false;
+            uniqueLabels.add(instance.label);
+            if (uniqueLabels.size() > 1) {
+                return false; // 数据集包含不同的标签，不是同质的
             }
         }
-        return true;
+        return true; // 数据集是同质的
     }
 
     private String getMajorityLabel(List<Instance> data) {
-        int yesCount = 0;
-        int noCount = 0;
+        List<String> labels = data.stream().map(instance -> instance.label).collect(Collectors.toList());
+        Collections.sort(labels);
+        int middleIndex = labels.size() / 2;
+        return labels.get(middleIndex);
+    }
+
+    private double calculateEntropy(List<Instance> data) {
+        Map<String, Integer> labelCounts = new HashMap<>();
         for (Instance instance : data) {
-            if ("Yes".equals(instance.label)) {
-                yesCount++;
+            labelCounts.merge(instance.label, 1, Integer::sum);
+        }
+
+        double entropy = 0.0;
+        for (Integer count : labelCounts.values()) {
+            double probability = count / (double) data.size();
+            entropy -= probability * Math.log(probability) / Math.log(2);
+        }
+        return entropy;
+    }
+
+    public String predict(Instance instance) {
+        TreeNode currentNode = root;
+
+        while (currentNode != null && !(currentNode.left == null && currentNode.right == null)) {
+            double featureValue = instance.features[getIndexForFeature(currentNode.attribute)];
+
+            if (featureValue <= currentNode.threshold) {
+                currentNode = currentNode.left;
             } else {
-                noCount++;
+                currentNode = currentNode.right;
             }
         }
-        return yesCount > noCount ? "Yes" : "No";
+
+        return currentNode != null ? currentNode.label : null;
+    }
+
+    private int getIndexForFeature(String feature) {
+        Map<String, Integer> featureIndexMap = new HashMap<>();
+        featureIndexMap.put("discounted_price", 0);
+        featureIndexMap.put("actual_price", 1);
+        featureIndexMap.put("discount_percentage", 2);
+        featureIndexMap.put("rating", 3);
+        featureIndexMap.put("rating_count", 4);
+
+        return featureIndexMap.getOrDefault(feature, -1); // 如果找不到特征，返回-1
+    }
+
+    public Map<String, Integer> getFeatureImportance() {
+        return featureImportance;
     }
 }
 
 class Instance {
     double[] features;
     String label;
+    String splitFeature;
 
-    public Instance(double[] features, String label) {
+    public Instance(double[] features, String label, String splitFeature) {
         this.features = features;
         this.label = label;
+        this.splitFeature = splitFeature;
     }
 }
 
 public class RandomForest {
     private List<DecisionTree> trees;
+    private Map<String, Integer> globalFeatureImportance = new HashMap<>();
     private int maxDepth;
 
     public RandomForest(int numTrees, int maxDepth) {
@@ -107,76 +212,39 @@ public class RandomForest {
 
     public void train(List<Instance> data) {
         for (DecisionTree tree : trees) {
-            List<Instance> bootstrapSample = bootstrapSample(data);
-            tree.train(bootstrapSample, 0);
+            tree.train(data, 0);
+            Map<String, Integer> treeImportance = tree.getFeatureImportance();
+            mergeImportance(treeImportance);
         }
+    }
+
+    private void mergeImportance(Map<String, Integer> treeImportance) {
+        treeImportance.forEach((feature, count) ->
+                globalFeatureImportance.merge(feature, count, Integer::sum));
     }
 
     public String predict(Instance instance) {
-        int yesCount = 0;
-        int noCount = 0;
+        int countYes = 0;
+        int countNo = 0;
+
         for (DecisionTree tree : trees) {
-            String prediction = tree.predict(tree.train(new ArrayList<>(), 0), instance);
+            String prediction = tree.predict(instance);
+
             if ("Yes".equals(prediction)) {
-                yesCount++;
-            } else {
-                noCount++;
+                countYes++;
+            } else if ("No".equals(prediction)) {
+                countNo++;
             }
         }
-        return yesCount > noCount ? "Yes" : "No";
+
+        return (countYes > countNo) ? "Yes" : "No";
     }
 
-    private List<Instance> bootstrapSample(List<Instance> data) {
-        List<Instance> sample = new ArrayList<>();
-        Random random = new Random();
-        for (int i = 0; i < data.size(); i++) {
-            sample.add(data.get(random.nextInt(data.size())));
-        }
-        return sample;
+    public Map<String, Integer> getGlobalFeatureImportance() {
+        return globalFeatureImportance;
     }
 
-    public static void main(String[] args) {
-        RandomForest randomForest = new RandomForest(10, 5); // 增加树的数量和深度
-
-        // 扩展的训练数据集，包含五个特征
-        List<Instance> trainingData = new ArrayList<>();
-        // 添加 "Yes" 实例
-        trainingData.add(new Instance(new double[]{100, 20, 80, 4.5, 200}, "Yes")); // 假设的特征值
-        trainingData.add(new Instance(new double[]{120, 15, 102, 4.6, 180}, "Yes"));
-        trainingData.add(new Instance(new double[]{130, 10, 117, 4.4, 250}, "Yes"));
-        trainingData.add(new Instance(new double[]{90, 25, 67.5, 4.3, 300}, "Yes"));
-        trainingData.add(new Instance(new double[]{110, 18, 90.2, 4.7, 150}, "Yes"));
-        // 添加 "No" 实例
-        trainingData.add(new Instance(new double[]{200, 5, 190, 3.8, 50}, "No"));
-        trainingData.add(new Instance(new double[]{180, 8, 165.6, 3.7, 60}, "No"));
-        trainingData.add(new Instance(new double[]{170, 12, 149.6, 3.9, 40}, "No"));
-
-        // 训练随机森林模型
-        randomForest.train(trainingData);
-
-        // 扩展的测试数据集
-        List<Instance> testData = new ArrayList<>();
-        Random random = new Random();
-        for (int i = 0; i < 20; i++) {
-            // 随机生成测试数据，这里也可以根据实际情况调整
-            double actualPrice = 80 + random.nextDouble() * 140; // 假设的特征值范围
-            double discountPercent = 5 + random.nextDouble() * 25;
-            double discountPrice = actualPrice * (1 - discountPercent / 100);
-            double rating = 3 + random.nextDouble() * 2;
-            double ratingCount = 50 + random.nextDouble() * 300;
-            testData.add(new Instance(new double[]{actualPrice, discountPercent, discountPrice, rating, ratingCount}, ""));
-        }
-
-        // 对测试数据集进行预测
-        for (Instance instance : testData) {
-            String prediction = randomForest.predict(instance);
-            System.out.print("Features: [");
-            for (double feature : instance.features) {
-                System.out.printf("%.2f ", feature);
-            }
-            System.out.println("] - Predicted: " + prediction);
-        }
+    public static void main(String[] args) throws IOException {
+        // [此处省略数据集的加载和预测逻辑，包括文件读取和CSV解析]
     }
-
 }
-
