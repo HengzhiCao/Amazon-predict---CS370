@@ -8,7 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class DataPreprocessing_rating {
+public class DataPreprocessing {
 
     public static void main(String[] args) {
         String filePath = "C:\\Users\\cao10\\Downloads\\CS370\\amazon_product.xlsx"; // 替换为你的文件路径
@@ -32,7 +32,7 @@ public class DataPreprocessing_rating {
                 double ratingCount = getNumericCellValue(row.getCell(16));
 
                 // 计算评分
-                double score = calculateScore(discountedPrice, actualPrice, discountPercentage, ratingCount,rating);
+                double score = getmissingCellValue(discountedPrice, actualPrice, discountPercentage, ratingCount,rating);
 
                 // 在第17栏写入评分
                 Cell scoreCell = row.createCell(17); // 在POI中索引从0开始
@@ -56,7 +56,7 @@ public class DataPreprocessing_rating {
         }
     }
 
-    private static double calculateScore(double discountedPrice, double actualPrice, double discountPercentage, double ratingCount, double rating) {
+    private static double getmissingCellValue(double discountedPrice, double actualPrice, double discountPercentage, double ratingCount, double rating) {
 
         // 处理丢失的discountedPrice
         if (Double.isNaN(discountedPrice) || discountedPrice <= 0) {
