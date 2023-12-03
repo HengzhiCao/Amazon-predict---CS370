@@ -266,7 +266,7 @@ public class RandomForest {
 //            System.out.println("Instance Label: " + testInstance.label + ", Predicted Label: " + prediction);
 //        }
 
-        String csvFilePath = "C:\\Users\\cao10\\IdeaProjects\\untitled\\amazon_product.csv"; // 替换为你的CSV文件路径
+        String csvFilePath = "C:\\Users\\chenc\\OneDrive\\Desktop\\Z College\\2023fall\\CSCI 370 SOFTWARE ENGINERRING\\goodsPredict\\CS370-\\amazon_product.csv"; // 替换为你的CSV文件路径
         List<String[]> csvData = new ArrayList<>();
         BufferedReader br = new BufferedReader(new FileReader(csvFilePath));
         String line;
