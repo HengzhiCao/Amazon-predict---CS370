@@ -1,152 +1,7 @@
 package com.cs370.group4.goodspredict;
 
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
-
-class DecisionTree {
-    static class TreeNode {
-        String attribute;
-        double threshold;
-        TreeNode left;
-        TreeNode right;
-        String label;
-    }
-
-    private int maxDepth;
-    private Map<String, Integer> featureImportance = new HashMap<>();
-
-    private TreeNode root;
-
-    public DecisionTree(int maxDepth) {
-        this.maxDepth = maxDepth;
-    }
-
-    private double calculateEntropy(List<Instance> data) {
-        Map<String, Integer> labelCounts = new HashMap<>();
-        for (Instance instance : data) {
-            labelCounts.merge(instance.label, 1, Integer::sum);
-        }
-
-        double entropy = 0.0;
-        for (Integer count : labelCounts.values()) {
-            double probability = count / (double) data.size();
-            entropy -= probability * Math.log(probability) / Math.log(2);
-        }
-        return entropy;
-    }
-
-    private double calculateConditionalEntropy(List<Instance> data, int featureIndex) {
-        Map<Double, List<Instance>> subsets = new HashMap<>();
-        for (Instance instance : data) {
-            subsets.computeIfAbsent(instance.features[featureIndex], k -> new ArrayList<>()).add(instance);
-        }
-
-        double conditionalEntropy = 0.0;
-        for (List<Instance> subset : subsets.values()) {
-            double subsetProbability = subset.size() / (double) data.size();
-            conditionalEntropy += subsetProbability * calculateEntropy(subset);
-        }
-        return conditionalEntropy;
-    }
-
-
-
-
-    public TreeNode train(List<Instance> data, int currentDepth) {
-        if (currentDepth == maxDepth || data.isEmpty() || isHomogeneous(data)) {
-            TreeNode leaf = new TreeNode();
-            leaf.label = getMajorityLabel(data);
-            return leaf;
-        }
-
-        Random random = new Random();
-        root = new TreeNode();
-        root.label = data.get(random.nextInt(data.size())).label;
-
-        // 在进行特征分裂时更新特征重要性
-        String splitFeature = data.get(random.nextInt(data.size())).splitFeature;
-        featureImportance.merge(splitFeature, 1, Integer::sum);
-
-        return root;
-    }
-
-    public Map<String, Integer> getFeatureImportance() {
-        return featureImportance;
-    }
-
-    public String predict(Instance instance) {
-        TreeNode currentNode = root;
-
-        while (currentNode.left != null && currentNode.right != null) {
-            double featureValue = instance.features[getIndexForFeature(currentNode.attribute)];
-
-            if (featureValue <= currentNode.threshold) {
-                currentNode = currentNode.left;
-            } else {
-                currentNode = currentNode.right;
-            }
-        }
-
-        // 返回叶子节点的标签作为预测结果
-        return currentNode.label;
-    }
-
-    private boolean isHomogeneous(List<Instance> data) {
-        Set<String> uniqueLabels = new HashSet<>();
-        for (Instance instance : data) {
-            uniqueLabels.add(instance.label);
-            if (uniqueLabels.size() > 1) {
-                return false; // 数据集包含不同的标签，不是同质的
-            }
-        }
-        return true; // 数据集是同质的
-    }
-
-
-    private String getMajorityLabel(List<Instance> data) {
-        // 获取标签集合
-        List<String> labels = data.stream().map(instance -> instance.label).collect(Collectors.toList());
-
-        // 对标签进行排序
-        Collections.sort(labels);
-
-        // 找到中位数
-        int middleIndex = labels.size() / 2;
-        String majorityLabel = labels.get(middleIndex);
-
-        return majorityLabel;
-    }
-
-
-    private int getIndexForFeature(String feature) {
-        Map<String, Integer> featureIndexMap = new HashMap<>();
-        featureIndexMap.put("discounted_price", 1);
-        featureIndexMap.put("actual_price", 2);
-        featureIndexMap.put("discount_percentage", 3);
-        featureIndexMap.put("rating", 4);
-        featureIndexMap.put("rating_count", 5);
-        // 其他特征的映射...
-
-        return featureIndexMap.getOrDefault(feature, -1); // 如果找不到特征，返回-1
-    }
-
-}
-
-class Instance {
-    double[] features;
-    String label;
-    String splitFeature;
-
-    public Instance(double[] features, String label, String splitFeature) {
-        this.features = features;
-        this.label = label;
-        this.splitFeature = splitFeature;
-    }
-}
 
 public class RandomForest {
     private List<DecisionTree> trees;
@@ -161,45 +16,48 @@ public class RandomForest {
         }
     }
 
+    /**
+     * Creates a bootstrap sample from the given data.
+     *
+     * @param data The list of instances to sample from.
+     * @return The bootstrap sample.
+     */
+    List<Instance> bootstrapSample(List<Instance> data) {
+        Random random = new Random();
+        List<Instance> sample = new ArrayList<>();
+
+        for (int i = 0; i < data.size(); i++) {
+            int index = random.nextInt(data.size());
+            sample.add(data.get(index));
+        }
+
+        return sample;
+    }
+
     public void train(List<Instance> data) {
         for (DecisionTree tree : trees) {
-            tree.train(data, 0);
-            // 获取每个决策树的特征重要性
-            Map<String, Integer> treeImportance = tree.getFeatureImportance();
-            // 合并到全局特征重要性中
-            mergeImportance(treeImportance);
+            List<Instance> sample = bootstrapSample(data);
+            tree.train(sample, 0);
         }
     }
 
+
     private void mergeImportance(Map<String, Integer> treeImportance) {
-        // 合并每个决策树的特征重要性到全局中
         treeImportance.forEach((feature, count) ->
                 globalFeatureImportance.merge(feature, count, Integer::sum));
     }
 
-    public Map<String, Integer> getGlobalFeatureImportance() {
-        return globalFeatureImportance;
-    }
-
     public String predict(Instance instance) {
-        int countYes = 0;
-        int countNo = 0;
-
+        Map<String, Integer> voteCounts = new HashMap<>();
         for (DecisionTree tree : trees) {
-            // DecisionTree 类有一个 predict 方法，它返回字符串标签
-            String prediction = tree.predict(instance);
-
-            if ("Yes".equals(prediction)) {
-                countYes++;
-            } else {
-                countNo++;
-            }
+            String prediction = tree.predict(instance, tree.getRoot());
+            voteCounts.merge(prediction, 1, Integer::sum);
         }
 
-        // 如果 "Yes" 的预测次数多于 "No"，则返回 "Yes"，否则返回 "No"
-        return (countYes > countNo) ? "Yes" : "No";
+        return Collections.max(voteCounts.entrySet(), Map.Entry.comparingByValue()).getKey();
     }
 
+<<<<<<< HEAD
     public static void main(String[] args) throws IOException {
         RandomForest randomForest = new RandomForest(50,10);
 
@@ -313,5 +171,7 @@ public class RandomForest {
         String prediction = randomForest.predict(instance);
         System.out.println("Predicted Label: " + prediction);
     }
+=======
+>>>>>>> d79166aee1ebc8ed591a0053c48fa45460e9533d
 
 }
