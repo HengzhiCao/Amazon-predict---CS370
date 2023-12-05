@@ -30,17 +30,17 @@ Contains the data structures and algorithms for the application.
 - `Split.java`
 - `TreeNode.java`
 
-#### `Unit_Test/`
-Includes unit tests for the application components.
-
-- `Unit_Test.java`
-
 #### `View/`
 Responsible for all the user interface components.
 
 - `MainView.java`
 - `PredictionResultView.java`
 - `ProductDetailView.java`
+
+
+#### `Unit_Test/`
+Includes unit tests for the application components.
+- `Unit_Test.java`
 
 ### Main (`Main`)
 The entry point of the application.
