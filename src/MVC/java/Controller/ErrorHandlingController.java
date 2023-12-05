@@ -6,10 +6,17 @@ public class ErrorHandlingController {
         // 构造函数
     }
 
+    /**
+     * Handles an exception by displaying an error message and printing the stack trace.
+     *
+     * @param e       The exception to handle.
+     * @param context The context in which the exception occurred.
+     */
     public void handleException(Exception e, String context) {
-        // 根据异常类型和上下文显示错误消息或执行其他错误处理逻辑
-        // 例如，记录错误、通知用户等
+        // Display error message
         System.err.println("Error occurred in " + context + ": " + e.getMessage());
+
+        // Print stack trace
         e.printStackTrace();
     }
 

@@ -65,8 +65,6 @@ public class Product {
     public String getCategory() {
         return category;
     }
-
-    // toString 方法用于在列表中显示产品名称
     @Override
     public String toString() {
         return name + " - " + id;

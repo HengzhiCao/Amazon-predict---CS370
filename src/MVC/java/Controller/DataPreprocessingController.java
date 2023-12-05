@@ -7,7 +7,7 @@ import java.util.List;
 public class DataPreprocessingController {
 
     public DataPreprocessingController() {
-        // 构造函数
+
     }
 
     public List<Product> preprocessProducts(List<Product> products) {

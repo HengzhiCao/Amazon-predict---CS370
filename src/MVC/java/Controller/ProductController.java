@@ -43,48 +43,88 @@ public class ProductController {
 
     }
 
+    /**
+     * Handles the search operation using the provided price range and product name.
+     * Displays the filtered products or appropriate error/message to the view.
+     *
+     * @param priceFrom   The minimum price range.
+     * @param priceTo     The maximum price range.
+     * @param productName The name of the product to search for.
+     * @param view        The view to display the results.
+     */
     public void handleSearch(double priceFrom, double priceTo, String productName, MainView view) {
+        // Validate the price range
         if (!inputValidationController.validatePrice(priceFrom) || !inputValidationController.validatePrice(priceTo)) {
             view.showError("Invalid price range");
             return;
         }
         try {
+            // Get the filtered products
             List<Product> products = productModel.getFilteredProducts(priceFrom, priceTo, productName);
+
+            // Preprocess the products
             List<Product> preprocessedProducts = dataPreprocessingController.preprocessProducts(products);
+
             if (products.isEmpty()) {
-                // 如果产品列表为空，通知用户没有找到产品
+                // If no products found, notify the user
                 view.showInfo("No products found in the database matching your criteria.");
             } else {
-                // 否则显示产品列表
+                // Otherwise, display the products
                 view.displayProducts(products);
             }
+
+            // Display the preprocessed products
             view.displayProducts(preprocessedProducts);
         } catch (Exception e) {
+            // Handle any exceptions
             errorHandlingController.handleException(e, "Search Operation");
         }
     }
 
+    /**
+     * Handles the selection of a product.
+     *
+     * @param selectedProduct The selected product.
+     */
     public void handleProductSelection(Product selectedProduct) {
-        // 创建 ProductDetailView 实例并传递所需的参数
+        // Create an instance of ProductDetailView and pass the required parameters
         ProductDetailView detailView = new ProductDetailView(selectedProduct, predictionController, this);
         detailView.setVisible(true);
 
-        // 可以在这里添加调用预测控制器的代码
-        // 例如：String prediction = predictionController.predictProduct(selectedProduct);
+        // You can add code here to call the prediction controller
+        // For example: String prediction = predictionController.predictProduct(selectedProduct);
     }
 
+    /**
+     * Handles the prediction result for a selected product.
+     *
+     * @param selectedProduct The selected product.
+     */
     public void handlePredictionResult(Product selectedProduct) {
+        // Predict the product
         String prediction = predictionController.predictProduct(selectedProduct);
+
+        // Display the prediction result
         predictionResultView.displayPredictionResult("Prediction: " + prediction);
 
+        // If the prediction is "No"
         if ("No".equals(prediction)) {
             try {
+                // Get recommended products from the same category
                 List<Product> recommendedProducts = productModel.getProductsByCategory(selectedProduct.getCategory());
-                recommendedProducts.remove(selectedProduct); // 移除当前选中的产品
+
+                // Remove the selected product from the recommended products
+                recommendedProducts.remove(selectedProduct);
+
+                // Display the recommended products
                 mainView.displayRecommendedProducts(recommendedProducts);
-                mainView.notifyUserAboutUpdate();  // 通知用户更新
+
+                // Notify the user about the update
+                mainView.notifyUserAboutUpdate();
             } catch (Exception e) {
-                errorHandlingController.handleException(e, "Prediction Result");}
+                // Handle any exceptions
+                errorHandlingController.handleException(e, "Prediction Result");
+            }
         }
     }
 

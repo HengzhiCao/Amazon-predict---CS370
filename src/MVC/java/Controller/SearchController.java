@@ -13,15 +13,24 @@ public class SearchController {
         this.productModel = productModel;
     }
 
+    /**
+     * Handles the search functionality by filtering products based on price range and product name.
+     * Displays the filtered products in the main view.
+     *
+     * @param priceFrom The minimum price of the products to be included in the search.
+     * @param priceTo The maximum price of the products to be included in the search.
+     * @param productName The name of the products to be included in the search.
+     * @param view The main view where the filtered products will be displayed.
+     */
     public void handleSearch(double priceFrom, double priceTo, String productName, MainView view) {
         try {
-            // 调用 ProductModel 获取过滤后的产品列表
+            // Get the filtered products using the ProductModel
             List<Product> products = productModel.getFilteredProducts(priceFrom, priceTo, productName);
-            // 将产品列表传递给视图层进行显示
+            // Display the products in the main view
             view.displayProducts(products);
         } catch (Exception e) {
             e.printStackTrace();
-            // 处理异常，例如显示错误消息
+            // Handle the exception, e.g., display an error message
         }
     }
 }

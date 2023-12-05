@@ -16,10 +16,18 @@ public class PredictionResultView extends JFrame {
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
     }
 
+    /**
+     * Sets the prediction text on the prediction label.
+     *
+     * @param prediction The prediction to display.
+     */
     public void displayPredictionResult(String prediction) {
-        predictionLabel.setText("Prediction: " + prediction);
-    }
+        // Format the prediction text
+        String predictionText = "Prediction: " + prediction;
 
+        // Set the prediction text on the prediction label
+        predictionLabel.setText(predictionText);
+    }
     // 其他方法...
 }
 
