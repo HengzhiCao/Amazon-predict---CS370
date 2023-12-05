@@ -44,10 +44,10 @@ Includes unit tests for the application components.
 
 ### Main (`Main`)
 The entry point of the application.
-- `Main.java` - Starts the application.
+- `Main.java` - Starts the application(need preload training data for prediction, which could take a few seconds.).
 
 ### Tests (`Unit_Test`)
 Contains unit tests for the application.
 - `Unit_Test.java` - Includes various unit tests to ensure application reliability.
-### Main (`Main`)
+
 
