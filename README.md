@@ -38,9 +38,6 @@ Responsible for all the user interface components.
 - `ProductDetailView.java`
 
 
-#### `Unit_Test/`
-Includes unit tests for the application components.
-- `Unit_Test.java`
 
 ### Main (`Main`)
 The entry point of the application.
