@@ -28,7 +28,7 @@ public class RandomForestModel {
         List<Instance> trainingData = new ArrayList<>();
 
         // Specify the path to the CSV file
-        String csvFile = "Amazon_training_data.csv"; // Update with the actual path to the CSV file
+        String csvFile = "Amazon_training_data.csv"; // Update with  you actual path to the CSV file(if you need to change the path)
 
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             String line;
