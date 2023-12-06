@@ -69,21 +69,42 @@ public class Unit_Test {
     public void testPreprocessProducts() {
         // 创建包含不同初始状态的 Product 实例的列表
         List<Product> products = Arrays.asList(
-                new Product("1", null, -1.0, 100.0, 0.5, 4.5, 10, "url", null, "category"), // 缺失名称和描述，无效价格
-                new Product("2", "Valid Product", 20.0, 100.0, 0.2, 4.0, 20, "url", "description", "category"), // 有效的产品
-                new Product("3", "", 0.0, 100.0, 0.3, 3.5, 30, "url", "", "category") // 名称和描述为空，价格为0
+                new Product("1", null, -1.0, 100.0, 50.0, -1, -1, null, null, null), // 缺失名称、描述、图片 URL 和类别，无效价格和评分
+                new Product("2", "Valid Product", 20.0, 100.0, 20.0, 4.0, 20, "validUrl", "description", "category"), // 有效的产品
+                new Product("3", "Unknown", 0.0, 100.0, 30.0, 3.5, 30, "defaultImageUrl", "No description available", "Unknown") // 名称、描述、图片 URL 和类别为空，价格为0
         );
 
         // 使用 DataPreprocessingController 处理这些产品
+        DataPreprocessingController controller = new DataPreprocessingController();
         List<Product> preprocessed = controller.preprocessProducts(products);
 
         // 断言预处理后的结果
         assertEquals("Unknown", preprocessed.get(0).getName());
-        assertEquals(0.0, preprocessed.get(0).getDiscountedPrice(), 0.0);
-        assertNotNull(preprocessed.get(0).getDescription());
+        assertEquals(50.0, preprocessed.get(0).getPrice(), 0.01); // 根据折扣计算的价格
+        assertEquals("No description available", preprocessed.get(0).getDescription());
+        assertEquals("defaultImageUrl", preprocessed.get(0).getImageUrl());
+        assertEquals("Unknown", preprocessed.get(0).getCategory());
+        assertEquals("1", preprocessed.get(0).getId());
+        assertEquals(0, preprocessed.get(0).getRating(), 0.01); // 设置评分为0
+        assertEquals(0, preprocessed.get(0).getRatingCount()); // 设置评分数量为0
 
-        // ...进行更多的断言验证
+        assertEquals("Valid Product", preprocessed.get(1).getName());
+        assertEquals(20.0, preprocessed.get(1).getPrice(), 0.01); // 根据折扣计算的价格
+        assertEquals("description", preprocessed.get(1).getDescription());
+        assertEquals("validUrl", preprocessed.get(1).getImageUrl());
+        assertEquals("category", preprocessed.get(1).getCategory());
+        assertEquals("2", preprocessed.get(1).getId());
+
+        assertEquals("Unknown", preprocessed.get(2).getName());
+        assertEquals(70.0, preprocessed.get(2).getPrice(), 0.01); // 根据折扣计算的价格
+        assertEquals("No description available", preprocessed.get(2).getDescription());
+        assertEquals("defaultImageUrl", preprocessed.get(2).getImageUrl());
+        assertEquals("Unknown", preprocessed.get(2).getCategory());
+        assertEquals("3", preprocessed.get(2).getId());
+
     }
+
+
     @Test
     public void testCalculateMissingDiscountedPrice() {
         // Input
@@ -142,7 +163,7 @@ public class Unit_Test {
     @Test
     public void testCalculateGini() {
         List<Instance> data = createSampleTrainingData();
-        double expectedGini = 0.5; // Replace with the actual expected Gini value
+        double expectedGini = 0.5;
         assertEquals("Gini calculation should match expected value",
                 expectedGini, decisionTree.calculateGini(data), 0.01);
     }
