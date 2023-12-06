@@ -67,10 +67,6 @@ public class RandomForestModel {
         }
     }
 
-    public String predict(Instance instance) {
-        return randomForest.predict(instance);
-    }
-
     public RandomForest getRandomForest() {
         return randomForest;
     }
