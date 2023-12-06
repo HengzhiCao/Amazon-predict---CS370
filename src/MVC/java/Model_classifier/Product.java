@@ -93,4 +93,24 @@ public class Product {
     public void setRatingCount(int i) {
         ratingCount = i;
     }
+
+    public void setDiscountPercentage(double calculatedDiscountPercentage) {
+        discountPercentage = calculatedDiscountPercentage;
+    }
+
+    public void setActualPrice(double calculatedActualPrice) {
+        actualPrice = calculatedActualPrice;
+    }
+
+    public void setImageUrl(String defaultImageUrl) {
+        imageUrl = defaultImageUrl;
+    }
+
+    public void setCategory(String unknown) {
+        category = unknown;
+    }
+
+    public void setProductId(String unknown) {
+        id = unknown;
+    }
 }
