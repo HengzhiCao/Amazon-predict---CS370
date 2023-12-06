@@ -1,7 +1,6 @@
 package Model_classifier.classifier;
 
 import Model_classifier.Instance;
-import Model_classifier.classifier.DecisionTree;
 
 import java.io.FileNotFoundException;
 import java.util.*;

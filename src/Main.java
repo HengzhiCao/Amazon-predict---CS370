@@ -1,13 +1,11 @@
-import Controller.ProductController;
 import Controller.PredictionController;
+import Controller.ProductController;
 import Model_classifier.ProductModel;
 import Model_classifier.RandomForestModel;
 import View.MainView;
+
 import javax.swing.*;
 import java.io.IOException;
-
-import java.io.IOException;
-import javax.swing.SwingUtilities;
 
 public class Main {
 

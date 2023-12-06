@@ -1,7 +1,5 @@
 package Model_classifier;
 
-import Model_classifier.Product;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;

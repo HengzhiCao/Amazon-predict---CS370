@@ -1,9 +1,5 @@
 package Controller;
 
-import Controller.DataPreprocessingController;
-import Controller.ErrorHandlingController;
-import Controller.InputValidationController;
-import Controller.PredictionController;
 import Model_classifier.Product;
 import Model_classifier.ProductModel;
 import View.MainView;
