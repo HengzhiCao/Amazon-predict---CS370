@@ -103,12 +103,7 @@ public class DecisionTree{
     }
 
 
-    /**
-     * Finds the best split for a given list of instances.
-     *
-     * @param data The list of instances to find the best split for.
-     * @return The best split found.
-     */
+
     /**
      * Finds the best split for a given list of instances.
      *
@@ -117,23 +112,26 @@ public class DecisionTree{
      * Diversifying by Feature Projection
      */
     private Split findBestSplit(List<Instance> data) {
-        Split bestSplit = new Split();
-        double bestImpurity = Double.MAX_VALUE;
-        int numFeatures = data.get(0).features.length;
-        int numFeaturesToConsider = numFeatures / 2; // 选择一半的特征
+        Split bestSplit = new Split(); // Initialize the best split
+        double bestImpurity = Double.MAX_VALUE; // Initialize the best impurity
+        int numFeatures = data.get(0).features.length; // Get the number of features
+        int numFeaturesToConsider = numFeatures / 2; // Select half of the features
 
-        // 随机选择特征
+        // Randomly select the features
         List<Integer> shuffledFeatureIndices = IntStream.range(0, numFeatures).boxed().collect(Collectors.toList());
         Collections.shuffle(shuffledFeatureIndices);
         List<Integer> selectedFeatureIndices = shuffledFeatureIndices.subList(0, numFeaturesToConsider);
 
-        // 只在选定的特征中寻找最佳分裂点
+        // Iterate through the selected features
         for (int featureIndex : selectedFeatureIndices) {
             Set<Double> featureValues = new HashSet<>();
+
+            // Get the unique feature values for the current feature
             for (Instance instance : data) {
                 featureValues.add(instance.features[featureIndex]);
             }
 
+            // Iterate through the unique feature values
             for (double threshold : featureValues) {
                 Split split = new Split();
                 split.featureIndex = featureIndex;
@@ -141,6 +139,8 @@ public class DecisionTree{
 
                 List<Instance> leftSplit = new ArrayList<>();
                 List<Instance> rightSplit = new ArrayList<>();
+
+                // Split the instances based on the current feature and threshold
                 for (Instance instance : data) {
                     if (instance.features[featureIndex] <= threshold) {
                         leftSplit.add(instance);
@@ -149,7 +149,10 @@ public class DecisionTree{
                     }
                 }
 
+                // Calculate the impurity of the split
                 double impurity = calculateImpurity(leftSplit, rightSplit);
+
+                // Update the best split if the impurity is lower
                 if (impurity < bestImpurity) {
                     bestImpurity = impurity;
                     bestSplit = split;
