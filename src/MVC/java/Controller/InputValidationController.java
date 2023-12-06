@@ -3,7 +3,7 @@ package Controller;
 public class InputValidationController {
 
     public InputValidationController() {
-        // 构造函数
+
     }
 
     /**

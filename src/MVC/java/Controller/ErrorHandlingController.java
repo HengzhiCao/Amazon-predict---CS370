@@ -3,7 +3,7 @@ package Controller;
 public class ErrorHandlingController {
 
     public ErrorHandlingController() {
-        // 构造函数
+
     }
 
     /**
