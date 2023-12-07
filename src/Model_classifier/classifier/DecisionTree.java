@@ -23,7 +23,8 @@ public class DecisionTree{
 
     private int maxDepth;
 
-    private TreeNode root;
+    public TreeNode root;
+
 
     /**
      * Returns the root node of the tree.
@@ -287,6 +288,8 @@ public class DecisionTree{
             return predict(instance, node.right);
         }
     }
+
+
 
 
 }

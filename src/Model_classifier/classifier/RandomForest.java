@@ -1,7 +1,7 @@
 package Model_classifier.classifier;
 
 import Model_classifier.Instance;
-
+import Model_classifier.classifier.DecisionTree;
 import java.io.FileNotFoundException;
 import java.util.*;
 
@@ -52,6 +52,9 @@ public class RandomForest {
 
         return Collections.max(voteCounts.entrySet(), Map.Entry.comparingByValue()).getKey();
     }
+
+
+
 
 
 }

@@ -28,6 +28,5 @@ public class PredictionResultView extends JFrame {
         // Set the prediction text on the prediction label
         predictionLabel.setText(predictionText);
     }
-    // 其他方法...
 }
 
