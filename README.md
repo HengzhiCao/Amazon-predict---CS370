@@ -2,6 +2,11 @@
 
 **Important Note for IntelliJ IDEA Users: After cloning the project, ensure to mark the src directory as a source root. Right-click on the src folder in the Project view, select "Mark Directory as" and then choose "Sources Root".**
 
+
+### Main (`Main`)
+The entry point of the application.
+- `Main.java` - Starts the application(need preload training data and to train, which could take a few minutes because this is a large dataset.).
+
 ## Project Structure
 
 Below is the structure of the project, which follows the MVC architecture:
@@ -39,11 +44,6 @@ Responsible for all the user interface components.
 - `PredictionResultView.java`
 - `ProductDetailView.java`
 
-
-
-### Main (`Main`)
-The entry point of the application.
-- `Main.java` - Starts the application(need preload training data for prediction, which could take a few seconds.).
 
 ### Tests (`Unit_Test`)
 Contains unit tests for the application.
