@@ -7,6 +7,7 @@ import View.PredictionResultView;
 import View.ProductDetailView;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProductController {
     private ProductModel productModel;
@@ -109,11 +110,12 @@ public class ProductController {
                 // Get recommended products from the same category
                 List<Product> recommendedProducts = productModel.getProductsByCategory(selectedProduct.getCategory());
 
-                // Remove the selected product from the recommended products
-                recommendedProducts.remove(selectedProduct);
+                // 这里添加逻辑以确保只获取预测为 "Yes" 的商品
+                // 假设有一个方法 getRecommendedProducts 来获取符合条件的产品
+                List<Product> filteredRecommendedProducts = getRecommendedProducts(recommendedProducts);
 
                 // Display the recommended products
-                mainView.displayRecommendedProducts(recommendedProducts);
+                mainView.displayRecommendedProducts(filteredRecommendedProducts);
 
                 // Notify the user about the update
                 mainView.notifyUserAboutUpdate();
@@ -122,6 +124,18 @@ public class ProductController {
                 errorHandlingController.handleException(e, "Prediction Result");
             }
         }
+    }
+
+    /**
+     * Filters the given list of products to only include those predicted as "Yes".
+     *
+     * @param products The list of products to filter.
+     * @return A list of products predicted as "Yes".
+     */
+    private List<Product> getRecommendedProducts(List<Product> products) {
+        return products.stream()
+                .filter(product -> "Yes".equals(predictionController.predictProduct(product)))
+                .collect(Collectors.toList());
     }
 
 }
