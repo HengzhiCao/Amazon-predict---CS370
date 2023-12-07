@@ -50,9 +50,9 @@ public class MainView extends JFrame {
      * Notifies the user about the product list update.
      */
     public void notifyUserAboutUpdate() {
-        String message = "We've updated the product list with recommendations of the same category.\n" +
-                "These are alternative choices for products in the same category.\n" +
-                "This update was made because the current product is not recommended.";
+        String message = "Since the product you selected is not recommended,\n" +
+                " we have updated the product list with items that our model deems worthy.\n" +
+                "You can still click the button to check if the products are worth it.";
 
         JOptionPane.showMessageDialog(this, message, "Product List Update", JOptionPane.INFORMATION_MESSAGE);
     }

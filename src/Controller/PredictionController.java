@@ -23,7 +23,7 @@ public class PredictionController {
         double[] features = extractFeatures(product);
 
         // Create an instance with the extracted features
-        Instance instance = new Instance(features, "", "");
+        Instance instance = new Instance(features, "");
 
         // Predict the product using the random forest model
         return randomForest.predict(instance);
