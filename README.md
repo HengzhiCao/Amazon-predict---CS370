@@ -1,4 +1,5 @@
 # Amazon-Predict-Worth-or-Not-Worth-with-Random-forest
+# important this need preload training data and to train, which could take a few minutes because this is a large dataset.
 
 **Important Note for IntelliJ IDEA Users: After cloning the project, ensure to mark the src directory as a source root. Right-click on the src folder in the Project view, select "Mark Directory as" and then choose "Sources Root".**
 
